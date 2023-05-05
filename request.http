@@ -1,0 +1,63 @@
+###
+GET http://localhost:3010/api/categorias HTTP/1.1
+
+###
+GET http://localhost:3010/api/categorias/1 HTTP/1.1
+
+###
+POST http://localhost:3010/api/categorias/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"Articulos de Cocina"
+}
+
+###
+PUT http://localhost:3010/api/categorias/11 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"Gym Chacarilla"
+}
+
+###
+DELETE http://localhost:3010/api/categorias/4 HTTP/1.1
+
+
+###
+GET http://localhost:3010/api/productos HTTP/1.1
+
+
+###
+POST http://localhost:3010/api/productos/ HTTP/1.1
+Content-Type: application/json
+
+ {
+    "cod_producto": 10007,
+    "nombre": "Elemento 7 app",
+    "descripcion": "Descripcion 7 app",
+    "imagen": null,
+    "stock": 100,
+    "precio": 7000.14,
+    "id_categoria": 3
+  }
+
+###
+DELETE http://localhost:3010/api/productos/11 HTTP/1.1
+
+###
+PUT http://localhost:3010/api/productos/10 HTTP/1.1
+Content-Type: application/json
+
+ {
+    "cod_producto": 10005,
+    "nombre": "Elemento 6 edit",
+    "descripcion": "Descripcion 6 edit",
+    "imagen": null,
+    "stock": 569,
+    "precio": 1000.14,
+    "id_categoria": 1
+  }
+
+###
+GET http://localhost:3010/api/productos/5 HTTP/1.1
