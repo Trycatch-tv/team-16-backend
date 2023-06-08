@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 import productsRoutes from "./products.route.js";
 import subcategoriesRoutes from "./subcategories.route.js";
@@ -8,20 +7,16 @@ import usersRoutes from "./users.router.js";
 import categoriesRoutes from "./categories.route.js";
 
 const indexRoutes = Router();
-const prefix = "/api";
 
-indexRoutes.get(prefix,(request,response)=>{
-    response.json({app:"inventario"});
+indexRoutes.get("/", (_, response) => {
+  response.json({ app: "inventario" });
 });
 
-indexRoutes.use(`${prefix}/categories`,categoriesRoutes);
-indexRoutes.use(`${prefix}/subcategories`,subcategoriesRoutes);
-indexRoutes.use(`${prefix}/products`,productsRoutes);
-indexRoutes.use(`${prefix}/suppliers`,suppliersRoutes);
-indexRoutes.use(`${prefix}/roles`,rolesRoutes);
-indexRoutes.use(`${prefix}/users`,usersRoutes);
-indexRoutes.use(`/*`,(request,response)=>{
-    response.redirect(`/${prefix}`);
-})
+indexRoutes.use("categories", categoriesRoutes);
+indexRoutes.use("subcategories", subcategoriesRoutes);
+indexRoutes.use("products", productsRoutes);
+indexRoutes.use("suppliers", suppliersRoutes);
+indexRoutes.use("roles", rolesRoutes);
+indexRoutes.use("/users", usersRoutes);
 
 export default indexRoutes;
