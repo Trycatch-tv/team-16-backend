@@ -1,0 +1,23 @@
+###
+GET http://localhost:3000/api/categories HTTP/1.1
+
+###
+POST http://localhost:3000/api/categories/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "name" : "Mecanicos",
+    "description" : "Categoría de vehículos y accesorios",
+    "image" : "automoviles003.jpg",
+    "public_id" : "public901", 
+    "user_id" : 2
+}
+
+###
+GET http://localhost:3000/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{ 
+    "email" : "techiespe@gmail.com",
+    "password" : "123456"
+}
