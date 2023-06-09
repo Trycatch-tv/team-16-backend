@@ -10,19 +10,10 @@ export async function login(request, response) {
       email: email,
       password: password,
     },
-  });
+  })
 
   if (user.length === 1) {
     return response.json({ msg: "User logged" });
   }
   return response.status(404).json({ error: "User not found" });
-}
-
-export async function register(request, response) {
-  const { email, password } = request.body;
-
-  const user = await User.create({
-    email: email,
-    password: password,
-  });
 }
