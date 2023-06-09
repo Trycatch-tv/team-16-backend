@@ -12,17 +12,15 @@ app.use(express.json());
 app.set("port", process.env.PORT);
 app.use("/api", indexRoutes);
 
-async function main() {
-  try {
-    await sequelize.sync();
-    app.listen(app.get("port"), () => {
-    console.log("Server on port: ", process.env.PORT);
-  });
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-main();
+// async function main() {
+//   try {
+//     await sequelize.sync();
+//     app.listen(app.get("port"), () => {});
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+//
+// main();
 
 export default app;
