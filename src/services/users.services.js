@@ -73,7 +73,7 @@ export const loginUser = (email, password) => {
   const passwordUser = password;
   return new Promise((resolve, reject) => {
     Users.findAll({
-      attributes: ["id", "public_id"],
+      attributes: ["public_id", "token"],
       where: {
         email: emailUser,
         password: passwordUser,

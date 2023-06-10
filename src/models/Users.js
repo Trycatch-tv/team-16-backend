@@ -18,6 +18,7 @@ const Users = sequelize.define("users", {
   email: {
     type: DataTypes.STRING(150),
     allowNull: false,
+    unique: 'compositeIndex'
   },
   password: {
     type: DataTypes.STRING(60),
@@ -28,8 +29,8 @@ const Users = sequelize.define("users", {
     allowNull: true,
   },
   public_id: {
-    type: DataTypes.STRING(150),
-    allowNull: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
   },
   token: {
     type: DataTypes.STRING(36),

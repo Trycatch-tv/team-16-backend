@@ -1,19 +1,39 @@
-import User from "../models/Users.js";
+import { createUser, loginUser } from "../services/users.services.js";
 
 export async function login(request, response) {
   const { email, password } = request.body;
-  if (!password || !email) {
-    return response.status(400).json({ error: "Email or password empty" });
-  }
-  const user = await User.findAll({
-    where: {
-      email: email,
-      password: password,
-    },
-  })
+  loginUser(email, password)
+    .then((data) => {
+      data[0].token = "token test";
+      response.json({
+        msg: "User logged",
+        data: data[0],
+      });
+    })
+    .catch((error) => {
+      return response.status(400).json({ error: error });
+    });
+}
 
-  if (user.length === 1) {
-    return response.json({ msg: "User logged" });
-  }
-  return response.status(404).json({ error: "User not found" });
+export async function register(request, response) {
+  const user = request.body;
+  createUser(user)
+    .then(() => {
+      response.status(200).json({
+        msg: "User regist",
+        data: user,
+      });
+    })
+    .catch((err) => {
+      const errors = [];
+      err.errors.forEach((element) => {
+        errors.push(element.message);
+      });
+      response.status(500).send({ errors: errors });
+    });
+}
+
+export async function logout(request, response) {
+  console.log(request.headers.authorization)
+  return response.json({msg: "test"})
 }
