@@ -33,7 +33,7 @@ const Users = sequelize.define("users", {
     defaultValue: DataTypes.UUIDV4,
   },
   token: {
-    type: DataTypes.STRING(36),
+    type: DataTypes.STRING(1000),
     allowNull: true,
   },
   caducidad_token: {

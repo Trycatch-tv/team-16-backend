@@ -1,18 +1,16 @@
-import { createUser, loginUser } from "../services/users.services.js";
+import { createUser } from "../services/users.services.js";
+import { loginUser, verifyToken } from "../services/auth.services.js";
 
 export async function login(request, response) {
   const { email, password } = request.body;
-  loginUser(email, password)
-    .then((data) => {
-      data[0].token = "token test";
-      response.json({
-        msg: "User logged",
-        data: data[0],
-      });
-    })
-    .catch((error) => {
-      return response.status(400).json({ error: error });
+  const user = await loginUser(email, password);
+  if (user) {
+    return response.json({
+      msg: "User logged",
+      data: user,
     });
+  }
+  return response.json({ error: "Login failed" }).status(400);
 }
 
 export async function register(request, response) {
@@ -34,6 +32,20 @@ export async function register(request, response) {
 }
 
 export async function logout(request, response) {
-  console.log(request.headers.authorization)
-  return response.json({msg: "test"})
+  if (request.headers["authorization"]) {
+    const validate = await verifyToken(request.headers.authorization.split(" ")[1]);
+    if (validate.iat) {
+      return response.json({
+        msg: "Logout success",
+        data: {
+          id: validate.public_id,
+          iat: validate.iat, 
+        },
+      });
+    }
+
+    return response.json(validate).status(401);
+  }
+
+  return response.json({ error: "Unauthorized" }).status(401);
 }
