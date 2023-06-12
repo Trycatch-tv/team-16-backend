@@ -12,7 +12,7 @@ export async function login(request, response) {
 
   const { email, password } = request.body;
   const user = await loginUser(email, password);
-  if (user.dataValues) {
+  if (user.id) {
     return response.status(200).json({
       msg: "User logged",
       data: user,
