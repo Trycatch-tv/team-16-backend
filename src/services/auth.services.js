@@ -20,22 +20,29 @@ export async function loginUser(email, password) {
       };
     }
     token = generateToken(user.dataValues);
-    const userUpdated = await Users.update(
+    await Users.update(
       { token: token },
       {
         where: {
-          id: user.dataValues.id,
+          id: user.id,
         },
       }
     );
 
     authUser = user
-    return await Users.findOne({
-      attributes: ["public_id", "token"],
-      where: {
-        id: userUpdated,
-      },
-    });
+
+    return {
+      id: user.public_id,
+      token: token
+    }
+
+    // authUser = user
+    // return await Users.findOne({
+    //   attributes: ["public_id", "token"],
+    //   where: {
+    //     id: user.id,
+    //   },
+    // });
   }
 
   return {
