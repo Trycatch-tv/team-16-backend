@@ -1,24 +1,32 @@
-import { createUser } from "../services/users.services.js";
-import { loginUser, verifyToken } from "../services/auth.services.js";
+import {
+  loginUser,
+  registerUser,
+  logoutUser,
+  authUser,
+} from "../services/auth.services.js";
 
 export async function login(request, response) {
+  if (!request.body.email || !request.body.password) {
+    return response.status(400).json({ error: "Email or password empty" });
+  }
+
   const { email, password } = request.body;
   const user = await loginUser(email, password);
-  if (user) {
-    return response.json({
+  if (user.dataValues) {
+    return response.status(200).json({
       msg: "User logged",
       data: user,
     });
   }
-  return response.json({ error: "Login failed" }).status(400);
+  return response.status(404).json({ error: user.error });
 }
 
 export async function register(request, response) {
   const user = request.body;
-  createUser(user)
+  await registerUser(user)
     .then(() => {
       response.status(200).json({
-        msg: "User regist",
+        msg: "Success",
         data: user,
       });
     })
@@ -31,21 +39,19 @@ export async function register(request, response) {
     });
 }
 
-export async function logout(request, response) {
-  if (request.headers["authorization"]) {
-    const validate = await verifyToken(request.headers.authorization.split(" ")[1]);
-    if (validate.iat) {
-      return response.json({
-        msg: "Logout success",
+export async function logout(_, response) {
+  const user = authUser;
+  logoutUser()
+    .then(() => {
+      return response.status(200).json({
+        msg: "Succes",
         data: {
-          id: validate.public_id,
-          iat: validate.iat, 
+          id: user.public_id,
+          token: user.token,
         },
       });
-    }
-
-    return response.json(validate).status(401);
-  }
-
-  return response.json({ error: "Unauthorized" }).status(401);
+    })
+    .catch((err) => {
+      return response.status(500).json({ error: err });
+    });
 }
