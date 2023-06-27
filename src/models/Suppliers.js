@@ -28,6 +28,16 @@ const Suppliers = sequelize.define('suppliers',
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: true
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+            allowNull: false
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+            allowNull: false
         }
     }
 );

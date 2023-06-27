@@ -3,7 +3,7 @@ import { Sequelize } from "sequelize";
 
 const username = process.env.DB_USER || 'postgres';
 const password = process.env.DB_PASS || 'postgres';
-const database = process.env.DB_NAME || 'inventario2';
+const database = process.env.DB_NAME || 'inventario1';
 const host = process.env.DB_HOST || 'localhost';
 const portpg = process.env.DB_PORTPG || 5432;
 const dialect = process.env.DB_DIALECT || 'postgres';

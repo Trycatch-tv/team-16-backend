@@ -25,8 +25,8 @@ export const createCategory = (categoria) => {
 };
 
 export const updateCategory = (id, categoria) => {
+    const categorySelected = Categories.findByPk(id,{raw:true});
     const idCategory = id;
-    console.log(categoria);
     return new Promise(
         (resolve, reject) => {
             Categories.update(categoria, { where: { id: idCategory } }).
@@ -42,9 +42,13 @@ export const updateCategory = (id, categoria) => {
 export const getCategoryById = (id) => {
     return new Promise(
         (resolve, reject) => {
-            Users.findByPk(id).then(
+            Categories.findByPk(id).then(
                 (result) => {
-                    resolve(result);
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        resolve({ message: "category not found" });
+                    }
                 }
             ).catch(
                 err => {
@@ -54,21 +58,26 @@ export const getCategoryById = (id) => {
     );
 }
 
-export const deleteCategory = (id) => {
-    const  idCategory  = id;
-    return new Promise(
-        (resolve, reject) => {
-            Categories.destroy(
-                {
-                    where: { id: idCategory }
+export const deleteCategory = async (id) => {
+    const categorySelected = await Categories.findByPk(id, { raw: true });
+    const idCategory = id;
+    if (categorySelected) {
+        return new Promise(
+            (resolve, reject) => {
+                Categories.destroy(
+                    {
+                        where: { id: idCategory }
+                    }
+                ).then(result => {
+                    resolve({ message: "category deleted" });
                 }
-            ).then(result => {
-                resolve(result);
+                ).catch(err => {
+                    reject(err);
+                }
+                );
             }
-            ).catch(err => {
-                reject(err);
-            }
-            );
-        }
-    );
+        );
+    } else {
+        return ({ "message": "category not found" });
+    }
 } 

@@ -25,7 +25,7 @@ const Categories = sequelize.define('categories',
             type: DataTypes.STRING(150),
             allowNull: false
         },
-        user_id: {
+        users_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {

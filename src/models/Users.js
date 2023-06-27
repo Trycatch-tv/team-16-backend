@@ -1,5 +1,6 @@
-import { DataTypes, NOW, Sequelize } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 import sequelize from "../config/database.js";
+import bcrypt from "bcryptjs";
 
 const Users = sequelize.define('users',
     {
@@ -29,11 +30,11 @@ const Users = sequelize.define('users',
             allowNull: true
         },
         "public_id": {
-            type: DataTypes.STRING(150),
+            type: DataTypes.STRING(20),
             allowNull: true
         },
         "token": {
-            type: DataTypes.STRING(36),
+            type: DataTypes.STRING(300),
             allowNull: true
         },
         "caducidad_token": {
@@ -49,14 +50,33 @@ const Users = sequelize.define('users',
             type: DataTypes.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: false
-          },
+        },
         updatedAt: {
             type: DataTypes.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: false
-          }
-    },
-
+        }
+    }
 );
+
+
+
+export const encriptPassword = async (password) => {
+    const salt = await bcrypt.genSalt(10);
+    return await new Promise(
+        (resolve, reject) => {
+            bcrypt.hash(password, salt)
+                .then(hash => {
+                    resolve(hash);
+                })
+                .catch(err => { reject(err) });
+        }
+    );
+}
+
+export const comparePassword = async (password, receivedPassword) => {
+    return await bcrypt.compare(password, receivedPassword);
+}
+
 
 export default Users;

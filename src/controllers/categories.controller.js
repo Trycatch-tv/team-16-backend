@@ -27,21 +27,17 @@ export const createCategory = (request, response) => {
 };
 
 export const deleteCategory = (request, response) => {
-    const {id} = request.params;
+    const { id } = request.params;
     categoriesServices.deleteCategory(id).
-                then(
-                    ()=>{
-                        response.status(200).json(
-                            {
-                                message : "delete category successfully..."
-                            }
-                        );
-                    }
-                ).catch(
-                    (err)=>{
-                        response.status(500).send(err);
-                    }    
-                );
+        then(
+            (result) => {
+                response.status(200).json(result);
+            }
+        ).catch(
+            (err) => {
+                response.status(500).send(err);
+            }
+        );
 };
 
 export const getCategoryById = (request, response) => {

@@ -1,18 +1,37 @@
 
+import { encriptPassword } from "../models/Users.js";
 import Users from "../models/Users.js";
 
-export const createUser = (user) => {
+export const createUser = async (user) => {
+    const { name, lastname, email, password, avatar, public_id, token, caducidad_token, status } = user;
+    const hash = await encriptPassword(password);
+
     return new Promise(
         (resolve, reject) => {
-            Users.create(user).
-                then(
-                    data => {
-                        resolve(data);
+            Users.create({
+                name,
+                lastname,
+                email,
+                password: hash,
+                avatar,
+                public_id,
+                token,
+                caducidad_token,
+                status
+            }
+            )
+                .then(data => {
+                    let message;
+                    if (data) {
+                        message = "User created"
+                    } else {
+                        message = "User fail to create"
                     }
-                ).catch(
-                    err => {
-                        reject(err);
+                    resolve({
+                        message: message
                     });
+                })
+                .catch(err => { reject(err); });
         }
     );
 };
@@ -86,14 +105,17 @@ export const updateUser = (id, user) => {
     );
 };
 
-export const loginUser = (email, password) => {
+
+
+export const getUserByEmailAndPassword = (email, password) => {
     const emailUser = email;
     const passwordUser = password;
+
     return new Promise(
         (resolve, reject) => {
             Users.findAll(
-                {   
-                    attributes: ['id','public_id'],
+                {
+                    attributes: ['id', 'name', 'lastname', 'email', 'password', 'token'],
                     where: {
                         email: emailUser,
                         password: passwordUser
@@ -110,4 +132,12 @@ export const loginUser = (email, password) => {
             );
         }
     );
+};
+
+export const saveTokentoUser = async (id, token) => {
+    try {
+        const saveToken = await Users.update({ token }, { where: { id } }, { raw: true });
+    } catch (error) {
+        throw new Error(error);
+    }
 };

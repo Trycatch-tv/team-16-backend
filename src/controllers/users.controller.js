@@ -27,12 +27,8 @@ export const getUserById = (request, response) => {
 export const deleteUser = (request, response) => {
     const { id } = request.params;
     usersServices.deleteUser(id).
-        then(() => {
-            response.status(200).json(
-                {
-                    message: "delete User successfully..."
-                }
-            );
+        then((result) => {
+            response.status(200).json(result);
         }).
         catch(err => {
             response.status(500).send(err);
@@ -55,26 +51,9 @@ export const createUser = (request, response) => {
     const user = request.body;
     usersServices.createUser(user).
         then(result => {
-            response.status(200).json(
-                {
-                    data: user
-                }
-            );
+            response.status(200).json(result);
         }).
         catch(err => {
             response.status(500).send(err);
-        });
-}
-
-export const loginUser = (request, response) => {
-    const { email, password } = request.body;
-    usersServices.loginUser(email, password).
-        then(
-            result => {
-                response.status(200).json(result);
-            }
-        ).
-        catch(err => {
-            response.status(500).send(err)
         });
 }

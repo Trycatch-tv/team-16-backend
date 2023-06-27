@@ -1,7 +1,7 @@
 import sequelize from "../config/database.js";
 import { DataTypes, Sequelize } from "sequelize";
 import Users from "./Users.js";
-import Subcategories from "./Subcategories.js";
+import Categories from "./Categories.js";
 import Suppliers from "./Suppliers.js";
 
 const Products = sequelize.define('products',
@@ -35,7 +35,7 @@ const Products = sequelize.define('products',
             type: DataTypes.STRING(150),
             allowNull: true
         },
-        user_id: {
+        users_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -43,11 +43,11 @@ const Products = sequelize.define('products',
                 key: 'id'
             }
         },
-        subcategories_id: {
+        categories_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: Subcategories,
+                model: Categories,
                 key: 'id'
             }
         },
