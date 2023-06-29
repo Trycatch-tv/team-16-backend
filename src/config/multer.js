@@ -24,9 +24,10 @@ const fileFilter = function (req, file, cb) {
 
 };
 
-export const fileSizeLimitErrorHandler = (err, req, res, next) => {
+export const validateImage = (err, request, response, next) => {
+  
     if (err) {
-      res.send({"message:":"Maximum size limit 5MB"})
+      response.send({"message:":"Maximum size limit 5MB"})
     } else {
       next()
     }

@@ -6,13 +6,14 @@ import {
     getSuppliersById,
     updateSupplier
 } from "../controllers/suppliers.controller.js";
+import validateSupplier from "../validators/suppliers.validator.js";
 
 const suppliersRoutes = Router();
 
 suppliersRoutes.get("/", getSuppliers);
 suppliersRoutes.get("/:id", getSuppliersById);
-suppliersRoutes.delete("/:id",deleteSupplier);
-suppliersRoutes.post("/",createSupplier);
-suppliersRoutes.put("/:id",updateSupplier);
+suppliersRoutes.delete("/:id", deleteSupplier);
+suppliersRoutes.post("/", validateSupplier, createSupplier);
+suppliersRoutes.put("/:id", validateSupplier, updateSupplier);
 
 export default suppliersRoutes;

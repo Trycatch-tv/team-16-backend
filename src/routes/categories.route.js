@@ -1,19 +1,19 @@
 import { Router } from "express";
 import {
-    getCategoryById,
-    getCategories,
-    updateCategory,
-    deleteCategory,
-    createCategory,
-  } from "../controllers/categories.controller.js";
-import upload, { fileSizeLimitErrorHandler } from "../config/multer.js";
+  getCategoryById,
+  getCategories,
+  updateCategory,
+  deleteCategory,
+  createCategory,
+} from "../controllers/categories.controller.js";
+import validateCategory from "../validators/categories.validator.js";
 
 const categoriesRoutes = Router();
 
 categoriesRoutes.get("/", getCategories);
-categoriesRoutes.delete("/:id",deleteCategory);
+categoriesRoutes.delete("/:id", deleteCategory);
 categoriesRoutes.get("/:id", getCategoryById);
-categoriesRoutes.post("/", upload.single('image'), fileSizeLimitErrorHandler,createCategory);
-categoriesRoutes.put("/:id", upload.single('image'), fileSizeLimitErrorHandler,updateCategory);
+categoriesRoutes.post("/", validateCategory, createCategory);
+categoriesRoutes.put("/:id", validateCategory, updateCategory);
 
 export default categoriesRoutes;

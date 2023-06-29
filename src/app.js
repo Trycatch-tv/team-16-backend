@@ -15,7 +15,13 @@ async function main() {
         app.set("port", process.env.PORT);
         //middlewares
         app.use(express.json());
-
+        app.use((err, request, response, next) => {
+            if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+              response.status(400).json({ error: 'incomplete JSON' });
+            } else {
+              next();
+            }
+          });        
         app.use("/", indexRoutes)
         app.listen(app.get("port"), () => { });
     });

@@ -39,29 +39,28 @@ export const getSuppliersById = (id) => {
 
 export const deleteSupplier = async (id) => {
     const supplierSelected = await Suppliers.findByPk(id, { raw: true });
-    if (supplierSelected) {
-        return new Promise(
-            (resolve, reject) => {
-                Suppliers.destroy({
-                    where: {
-                        id: id
-                    }
-                })
-                    .then(
-                        data => {
-                            resolve({ "message": "supplier deleted" });
-                        })
-                    .catch(
-                        err => {
-                            reject(err);
-                        }
-                    );
-            }
-        );
-
-    } else {
+    if (!supplierSelected) {
         return { "message": "supplier not found" }
     }
+    return new Promise(
+        (resolve, reject) => {
+            Suppliers.destroy({
+                where: {
+                    id: id
+                }
+            })
+                .then(
+                    data => {
+                        resolve({ "message": "supplier deleted" });
+                    })
+                .catch(
+                    err => {
+                        reject(err);
+                    }
+                );
+        }
+    );
+
 }
 
 export const createSupplier = (supplier) => {
@@ -106,12 +105,12 @@ export const updateSupplier = async (id, supplier) => {
                     { where: { id } }
                 )
                     .then(
-                        result=>{
-                            resolve({"message":"supplier updated"});
+                        result => {
+                            resolve({ "message": "supplier updated" });
                         }
                     )
                     .catch(
-                        err=>{
+                        err => {
                             reject(err);
                         }
                     )

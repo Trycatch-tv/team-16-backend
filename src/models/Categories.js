@@ -19,11 +19,11 @@ const Categories = sequelize.define('categories',
         },
         image: {
             type: DataTypes.STRING(150),
-            allowNull: false
+            allowNull: true
         },
         public_id: {
             type: DataTypes.STRING(150),
-            allowNull: false
+            allowNull: true
         },
         users_id: {
             type: DataTypes.INTEGER,

@@ -45,8 +45,8 @@ export const deleteProduct = (request, response) => {
 export const createProduct = (request, response) => {
     const { name, description, stock, price, users_id, categories_id, suppliers_id } = request.body;
     if (!request.file) {
-        return response.status(400).json({ error: 'Image not found' });
-    }
+        return response.status(200).json({ error: 'Image not found' });
+    }  
     const { path: image } = request.file;
     productsServices.createProduct({
         name,
