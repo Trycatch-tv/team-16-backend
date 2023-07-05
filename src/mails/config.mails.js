@@ -32,18 +32,39 @@ export const sendMail = async function(email = '', subject = '', plantilla = '',
     }
 
     if (entorno === 'production') {
+        // transporter = nodemailer.createTransport(smtpTransport({
+        //     // service: 'hotmail',
+        //     host: "mail.fabriziodev.ar",
+        //     port: 465,
+        //     secure: true,
+        //     auth: {
+        //         user: user,
+        //         pass: pass
+        //     },
+        //     tls: {
+        //         rejectUnauthorized: false
+        //     }
+        // }));
+
         transporter = nodemailer.createTransport(smtpTransport({
             // service: 'hotmail',
-            host: "mail.fabriziodev.ar",
-            port: 465,
-            secure: true,
+            // host: "mail.fabriziodev.ar",
+            host: "smtp-mail.outlook.com",
+            // smtp-mail.outlook.com
+            port: 587,
+            // port: 465,
+            // secure: true,
+            secureConnection: false,
             auth: {
                 user: user,
                 pass: pass
             },
             tls: {
-                rejectUnauthorized: false
+                ciphers: 'SSLv3'
             }
+            // tls: {
+            //     rejectUnauthorized: false
+            // }
         }));
     }
 
