@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "dev": "nodemon ./src/index.js",
-        "start": "nodemon ./src/index.js",
+        "start": "node ./src/index.js",
         "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --watchAll --config=jest.config.js",
         "migration:drop": "node ./src/db/dropTables.js",
         "createRole": "node ./src/db/createRoles.js",
