@@ -1,9 +1,9 @@
-import { createServ, deleteServ, getAllDeletedServ, getAllServ, getByIdServ, restoreServ, updateServ } from "../services/categories.services.js";
+import { createServ, deleteServ, getAllDeletedServ, getAllServ, getByIdServ, restoreServ, updateServ } from "../services/product.services.js";
 
 export async function getAll(req, res) {
     try {
-        const page = parseInt(req.query.p) || 1; // Obtener el número de página, o utilizar 1 si no se proporciona
-        const limit = parseInt(req.query.l) || parseInt(process.env.PAGE_SIZE); // Obtener el límite de elementos por página, o utilizar lo que este declarado en el .env si no se proporciona
+        const page = parseInt(req.query.p) || 1;
+        const limit = parseInt(req.query.l) || parseInt(process.env.PAGE_SIZE);
 
         const data = await getAllServ(limit, page);
         const { statusCode, ...responseData } = data;
@@ -15,8 +15,8 @@ export async function getAll(req, res) {
 
 export async function getAllDeleted(req, res) {
     try {
-        const page = parseInt(req.query.p) || 1; // Obtener el número de página, o utilizar 1 si no se proporciona
-        const limit = parseInt(req.query.l) || parseInt(process.env.PAGE_SIZE); // Obtener el límite de elementos por página, o utilizar lo que este declarado en el .env si no se proporciona
+        const page = parseInt(req.query.p) || 1;
+        const limit = parseInt(req.query.l) || parseInt(process.env.PAGE_SIZE);
 
         const data = await getAllDeletedServ(limit, page);
         const { statusCode, ...responseData } = data;

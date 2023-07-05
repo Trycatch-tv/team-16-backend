@@ -1,32 +1,47 @@
 {
-  "name": "team16-backend-pg",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "dev": "nodemon ./src/index.js",
-    "start": "nodemon ./src/index.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --watchAll --config=jest.config.json",
-    "migration:drop": "node ./src/dropTables.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.1.3",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "morgan": "^1.10.0",
-    "pg": "^8.11.0",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.31.1"
-  },
-  "devDependencies": {
-    "jest": "^29.5.0",
-    "nodemon": "^2.0.22",
-    "supertest": "^6.3.3"
-  }
+    "name": "team16-backend-pg",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon ./src/index.js",
+        "start": "nodemon ./src/index.js",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --watchAll --config=jest.config.js",
+        "migration:drop": "node ./src/db/dropTables.js",
+        "createRole": "node ./src/db/createRoles.js",
+        "createUser": "node ./src/db/createUserTest.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "cloudinary": "^1.37.0",
+        "colors": "^1.4.0",
+        "connect-multiparty": "^2.2.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "ejs": "^3.1.9",
+        "express": "^4.17.1",
+        "express-fileupload": "^1.4.0",
+        "express-validator": "^7.0.1",
+        "handlebars": "^4.7.7",
+        "jsonwebtoken": "^8.5.1",
+        "moment": "^2.29.4",
+        "moment-timezone": "^0.5.43",
+        "morgan": "^1.10.0",
+        "nodemailer": "^6.9.2",
+        "nodemailer-smtp-transport": "^2.7.4",
+        "pg": "^8.11.0",
+        "pg-hstore": "^2.3.4",
+        "sequelize": "^6.31.1"
+    },
+    "devDependencies": {
+        "jest": "^29.5.0",
+        "nodemon": "^2.0.22",
+        "supertest": "^6.3.3",
+        "sqlite3": "^5.1.6"
+    }
 }

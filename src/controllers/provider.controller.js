@@ -1,4 +1,4 @@
-import { createServ, deleteServ, getAllDeletedServ, getAllServ, getByIdServ, restoreServ, updateServ } from "../services/categories.services.js";
+import { createServ, deleteServ, getAllDeletedServ, getAllServ, getByIdServ, restoreServ, updateServ } from "../services/provider.services.js";
 
 export async function getAll(req, res) {
     try {

@@ -1,57 +1,123 @@
-import {
-  loginUser,
-  registerUser,
-  logoutUser,
-  authUser,
-} from "../services/auth.services.js";
+import { registerUser, loginUser, verifyUser, verifyTokenUser, forgotPasswordUser, recoveryPasswordUser, refreshTokenUser, reactiveUserSer, getRolesSer, gestionarRolesDeUsuarioSer, verifyNewUserSer, newPasswordUserSer } from '../services/auth.services.js';
 
-export async function login(request, response) {
-  if (!request.body.email || !request.body.password) {
-    return response.status(400).json({ error: "Email or password empty" });
-  }
-
-  const { email, password } = request.body;
-  const user = await loginUser(email, password);
-  if (user.id) {
-    return response.status(200).json({
-      msg: "User logged",
-      data: user,
-    });
-  }
-  return response.status(404).json({ error: user.error });
+export async function register(req, res) {
+    try {
+        const user = await registerUser(req.body, req.method, req.originalUrl);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (err) {
+        res.status(500).json(err.message);
+    }
 }
 
-export async function register(request, response) {
-  const user = request.body;
-  await registerUser(user)
-    .then(() => {
-      response.status(200).json({
-        msg: "Success",
-        data: user,
-      });
-    })
-    .catch((err) => {
-      const errors = [];
-      err.errors.forEach((element) => {
-        errors.push(element.message);
-      });
-      response.status(500).send({ errors: errors });
-    });
+export async function login(req, res) {
+    try {
+        // console.log(req.method);
+        // console.log(req.originalUrl);
+        const user = await loginUser(req.body);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
 }
 
-export async function logout(_, response) {
-  const user = authUser;
-  logoutUser()
-    .then(() => {
-      return response.status(200).json({
-        msg: "Succes",
-        data: {
-          id: user.public_id,
-          token: user.token,
-        },
-      });
-    })
-    .catch((err) => {
-      return response.status(500).json({ error: err });
-    });
+export async function verify(req, res) {
+    try {
+        const user = await verifyUser(req.params['token']);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+export async function verifyNewUser(req, res) {
+    try {
+        const user = await verifyNewUserSer(req.params['token']);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+export async function verifyToken(req, res) {
+    try {
+        const user = await verifyTokenUser(req.params['token']);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+export async function forgotPassword(req, res) {
+    try {
+        const user = await forgotPasswordUser(req.body);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+export async function resetPassword(req, res) {
+    try {
+        const user = await recoveryPasswordUser(req.params, req.body);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+export async function newPasswordUser(req, res) {
+    try {
+        const user = await newPasswordUserSer(req.params, req.body);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+export async function refreshToken(req, res) {
+    try {
+        const user = await refreshTokenUser(req.body);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+export async function reactiveUser(req, res) {
+    try {
+        const user = await reactiveUserSer(req.body);
+        const { statusCode, ...responseData } = user;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+export async function getRoles(req, res) {
+    try {
+        const roles = await getRolesSer();
+        const { statusCode, ...responseData } = roles;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+export async function gestionarRoles(req, res) {
+    try {
+        const roles = await gestionarRolesDeUsuarioSer(req.body);
+        const { statusCode, ...responseData } = roles;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
 }
