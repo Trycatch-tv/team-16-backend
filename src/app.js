@@ -13,13 +13,15 @@ const app = express();
 const entorno = process.env.NODE_ENV || 'dev';
 const url_front = process.env.HOST_FRONT || '*';
 
-var corsOptions = {
+let corsOptions = {
     origin: url_front
 };
 
+app.disable('x-powered-by');
+
 app.use(cors(corsOptions));
 
-app.use(morgan(entorno));
+app.use(morgan('dev'));
 // parse requests of content-type - application/json
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
 
@@ -27,7 +29,7 @@ app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set("env", entorno);
-app.set("port", process.env.API_PORT);
+app.set("port", process.env.API_PORT || 3000);
 app.use(express.json());
 app.set("port", process.env.API_PORT);
 app.use("/", indexRoutes);

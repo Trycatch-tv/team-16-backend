@@ -21,7 +21,7 @@ const Log = sequelize.define(
             allowNull: false
         },
         method: {
-            type: DataTypes.STRING(5),
+            type: DataTypes.STRING(6),
             allowNull: false
         },
         url: {

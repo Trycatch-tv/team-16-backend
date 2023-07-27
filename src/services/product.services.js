@@ -173,7 +173,8 @@ export const createServ = async(req) => {
     const { imageFile } = files;
     try {
         const img_path = imageFile.path;
-        let name_img = img_path.split("\\");
+        let name_img = img_path.split("/");
+        console.log(`Nombre separado: ${name_img}`);
         let portada_name = name_img[2];
         let filename = `${~~(Math.random() * 9999)}-${createSlug(name)}`
         let splitName = name_img[2].split('.');
@@ -237,7 +238,7 @@ export const updateServ = async(req) => {
         }
 
         const img_path = imageFile.path;
-        let name_img = img_path.split("\\");
+        let name_img = img_path.split("/");
         let portada_name = name_img[2];
         let filename = `${~~(Math.random() * 9999)}-${createSlug(name)}`;
         let splitName = name_img[2].split('.');

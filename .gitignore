@@ -2,3 +2,5 @@
 .env
 .env.test
 /uploads
+.dockerignore
+fly-copy.toml

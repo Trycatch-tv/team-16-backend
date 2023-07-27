@@ -4,6 +4,7 @@ import fs from "fs";
 import Handlebars from "handlebars";
 import ejs from "ejs";
 
+const name = process.env.NAME_MAIL;
 const user = process.env.USER_MAIL;
 const pass = process.env.PASS_MAIL;
 const entorno = process.env.NODE_ENV;
@@ -77,7 +78,7 @@ export const sendMail = async function(email = '', subject = '', plantilla = '',
         let htmlToSend = template({ op: true });
 
         let mailOptions = {
-            from: `No Reply - Fabrizio Dev <${user}>`,
+            from: `${name} <${user}>`,
             to: email, //email para quien va enviado
             subject: subject,
             html: htmlToSend
