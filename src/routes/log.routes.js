@@ -5,6 +5,6 @@ import { getAllLogsCont } from "../controllers/log.controller.js";
 
 const router = Router();
 
-router.get('/logs', getAllLogsCont);
+router.get('/logs', [isTokenValid, isAdmin], getAllLogsCont);
 
 export default router;

@@ -5,7 +5,7 @@ import { validateProduct } from "../validation/product.validation.js";
 import multiparty from 'connect-multiparty';
 import { checkFolderCreate } from "../helpers/image.helpers.js";
 checkFolderCreate('products');
-const path = multiparty({ uploadDir: './uploads/products' });
+const path = multiparty({ uploadDir: './uploads/products', limit: '50mb' });
 
 const router = Router();
 
